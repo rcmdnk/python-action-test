@@ -1,0 +1,35 @@
+---
+name: test
+
+on:
+  push:
+    branches-ignore:
+      - "coverage"
+      - "renovate/**"
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest,macos-latest]
+        python-version: [3.10,3.9]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check is main
+        id: push_coverage
+        continue-on-error: true
+        run:
+          if test "${{ github.ref }}" == "refs/heads/main"  && test "${{ matrix.os }}" == "ubuntu-latest"  && test "${{ matrix.python-version }}" == "3.10";then
+            echo "flag=1" >> $GITHUB_OUTPUT
+          else
+            echo "flag=0" >> $GITHUB_OUTPUT
+          fi
+      - uses: rcmdnk/python-action@v1
+        with:
+          push_coverage: ${{ steps.push_coverage.flag }}
