@@ -2,7 +2,7 @@
 name = "python-action-test"
 version = "0.0.1"
 description = "test repository for python-action"
-authors = ["rcmdnk@gmail.com"]
+authors = ["rcmdnk <rcmdnk@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
