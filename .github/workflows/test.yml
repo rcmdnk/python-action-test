@@ -33,3 +33,4 @@ jobs:
       - uses: rcmdnk/python-action@v1
         with:
           push_coverage: ${{ steps.push_coverage.flag }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
