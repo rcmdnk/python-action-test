@@ -25,11 +25,12 @@ jobs:
         id: push_coverage
         continue-on-error: true
         run:
-          if test "${{ github.ref }}" == "refs/heads/main"  && test "${{ matrix.os }}" == "ubuntu-latest"  && test "${{ matrix.python-version }}" == "3.10";then
+          if [ "${{ github.ref }}" = "refs/heads/main" ] && test [ "${{ matrix.os }}" = "ubuntu-latest" ] && [ "${{ matrix.python-version }}" = "3.10" ];then
             echo "flag=1" >> $GITHUB_OUTPUT
           else
             echo "flag=0" >> $GITHUB_OUTPUT
           fi
+        shell: bash
       - uses: rcmdnk/python-action@v1
         with:
           coverage-push: ${{ steps.push_coverage.flag }}
