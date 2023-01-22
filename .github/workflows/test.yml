@@ -36,13 +36,9 @@ jobs:
           else
             echo "flag=0" >> $GITHUB_OUTPUT
           fi
-      - name: Cancel workflow
+      - name: Exit workflow
         if: ${{ steps.is_main.outputs.flag != '1' && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
-        run: |
-          curl -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${{ github.token }} " \
-            https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/cancel
+        run: exit
       - uses: rcmdnk/python-action@v1
         with:
           coverage-push: "${{ steps.is_main.outputs.flag }}"
