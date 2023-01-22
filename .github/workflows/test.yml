@@ -40,10 +40,10 @@ jobs:
         shell: bash
       - uses: rcmdnk/python-action@v1
         with:
-          coverage-push: ${{ steps.is_main.flag }}
+          coverage-push: ${{ steps.is_main.outputs.flag }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
-        if: ${{ steps.is_main.flag == '1' && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+        if: ${{ steps.is_main.outputs.flag == '1' && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
