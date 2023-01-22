@@ -38,7 +38,7 @@ jobs:
           fi
       - name: Exit workflow
         if: ${{ steps.is_main.outputs.flag != '1' && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
-        run: exit
+        run: exit 1
       - uses: rcmdnk/python-action@v1
         with:
           coverage-push: "${{ steps.is_main.outputs.flag }}"
