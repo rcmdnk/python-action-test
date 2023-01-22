@@ -46,4 +46,4 @@ jobs:
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
-        if: ${{ steps.is_main.flag == "1" && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+        if: ${{ steps.is_main.flag == '1' && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
