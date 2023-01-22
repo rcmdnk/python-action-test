@@ -54,6 +54,7 @@ jobs:
         if: ${{ inputs.head_python_action }}
         with:
           coverage-push: "${{ steps.is_main.outputs.flag }}"
+          pre-commit: "1"
 
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
