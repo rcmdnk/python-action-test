@@ -2,7 +2,7 @@ import sys
 
 import pytest
 
-from test_python_action_test import main
+from python_action_test import main
 
 
 @pytest.mark.parametrize(

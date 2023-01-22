@@ -1,6 +1,6 @@
 import tomli
 
-from python_template import __version__
+from python_action_test import __version__
 
 
 def test_version():
