@@ -48,7 +48,7 @@ jobs:
         if: ${{ ! inputs.head_python_action }}
         with:
           coverage-push: "${{ steps.is_main.outputs.flag }}"
-      - uses: rcmdnk/python-action
+      - uses: rcmdnk/python-action@main
         if: ${{ inputs.head_python_action }}
         with:
           coverage-push: "${{ steps.is_main.outputs.flag }}"
