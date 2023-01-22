@@ -14,6 +14,11 @@ on:
         description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
         required: false
         default: false
+      head_python_action:
+        type: boolean
+        description: 'Use the head version of python-action instead of v1'
+        required: false
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -40,6 +45,12 @@ jobs:
         if: ${{ steps.is_main.outputs.flag != '1' && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
         run: exit 1
       - uses: rcmdnk/python-action@v1
+        if: ${{ ! inputs.head_python_action }}
+        with:
+          coverage-push: "${{ steps.is_main.outputs.flag }}"
+      - name: python-action
+        uses: rcmdnk/python-action/actions.yml
+        if: ${{ inputs.head_python_action }}
         with:
           coverage-push: "${{ steps.is_main.outputs.flag }}"
 
