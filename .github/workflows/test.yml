@@ -52,7 +52,6 @@ jobs:
         if: ${{ steps.is_main.outputs.flag == '1' && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
         run: echo hoge
       - name: check
-        if: ${{ steps.is_main.outputs.flag == '1' && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
         run: echo "${{ steps.is_main.outputs.flag }} XX ${{ github.event_name }} XX ${{ inputs.debug_enabled }}"
       - name: check is_main if
         if: ${{ steps.is_main.outputs.flag == '0' }}
