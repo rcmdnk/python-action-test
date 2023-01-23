@@ -55,6 +55,9 @@ jobs:
         with:
           coverage-push: "${{ steps.is_main.outputs.flag }}"
           pre-commit: "${{ steps.is_main.outputs.flag }}"
+      - name: Test count check
+        run: |
+          [ "${{  steps.python_action.outputs.tests }}" = 4 ]
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         if: ${{ steps.is_main.outputs.flag == '1' && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
@@ -66,6 +69,7 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
         run: exit 1
       - uses: rcmdnk/python-action@v1
+        id: python_action
         if: ${{ ! inputs.head_python_action }}
         with:
           pytest-ignore: "tests/test_version.py,tests/test_nonexists.py"
@@ -76,3 +80,6 @@ jobs:
         with:
           pytest-ignore: "tests/test_version.py,tests/test_nonexists.py"
           pytest-cov-path: "src"
+      - name: Test count check
+        run: |
+          [ "${{  steps.python_action.outputs.tests }}" = 3 ]
