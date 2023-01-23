@@ -25,7 +25,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  test_matrix:
     strategy:
       fail-fast: false
       matrix:
@@ -55,8 +55,24 @@ jobs:
         with:
           coverage-push: "${{ steps.is_main.outputs.flag }}"
           pre-commit: "${{ steps.is_main.outputs.flag }}"
-
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         if: ${{ steps.is_main.outputs.flag == '1' && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
         uses: mxschmitt/action-tmate@v3
+  python-ignore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit workflow
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+        run: exit 1
+      - uses: rcmdnk/python-action@v1
+        if: ${{ ! inputs.head_python_action }}
+        with:
+          pytest-ignore: "tests/test_version.py,tests/test_nonexists.py"
+          pytest-cov-path: "src"
+      - uses: rcmdnk/python-action@main
+        if: ${{ inputs.head_python_action }}
+        continue-on-error: true
+        with:
+          pytest-ignore: "tests/test_version.py,tests/test_nonexists.py"
+          pytest-cov-path: "src"
