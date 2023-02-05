@@ -15,11 +15,13 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: convictional/trigger-workflow-and-wait@v1.6.5
         with:
-          owner: rcmdnk
-          repo: python-action-test
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.event.repository.name }}
+          github_token: ${{ github.token }}
           workflow_file_name: dispatch.yml
           propagate_failure: true
