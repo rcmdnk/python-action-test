@@ -22,6 +22,7 @@ jobs:
         with:
           owner: ${{ github.repository_owner }}
           repo: ${{ github.event.repository.name }}
+          ref: ${{ github.ref }}
           github_token: ${{ github.token }}
           workflow_file_name: dispatch.yml
           propagate_failure: true
