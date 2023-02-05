@@ -1,5 +1,5 @@
 ---
-name: test
+name: trigger
 
 on:
   push:
@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  trigger:
     runs-on: ubuntu-latest
     permissions:
       actions: write
