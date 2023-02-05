@@ -16,7 +16,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      actions: write
     steps:
       - uses: convictional/trigger-workflow-and-wait@v1.6.5
         with:
