@@ -1,4 +1,4 @@
-[![test](https://github.com/rcmdnk/python-action-test/actions/workflows/test.yml/badge.svg)](https://github.com/rcmdnk/python-action-test/actions/runs/4096757962)
+[![test](https://github.com/rcmdnk/python-action-test/actions/workflows/test.yml/badge.svg)](https://github.com/rcmdnk/python-action-test/actions/runs/4097157974)
 
 commit: [c6f05c93bb5d9306976086d179bd5302eacda6aa](https://github.com/rcmdnk/python-action-test/tree/c6f05c93bb5d9306976086d179bd5302eacda6aa)
 
@@ -8,5 +8,5 @@ condition: branch=main, os=ubuntu-latest, python_version=3.10
 
 | Tests | Skipped | Failures | Errors | Time |
 | ----- | ------- | -------- | -------- | ------------------ |
-| 4 | 0 :zzz: | 0 :x: | 0 :fire: | 0.086s :stopwatch: |
+| 4 | 0 :zzz: | 0 :x: | 0 :fire: | 0.140s :stopwatch: |
 
