@@ -1,6 +1,6 @@
-[![test](https://github.com/rcmdnk/python-action-test/actions/workflows/test.yml/badge.svg)](https://github.com/rcmdnk/python-action-test/actions/runs/4097162772)
+[![dispatch](https://github.com/rcmdnk/python-action-test/actions/workflows/dispatch.yml/badge.svg)](https://github.com/rcmdnk/python-action-test/actions/runs/4097198748)
 
-commit: [c6f05c93bb5d9306976086d179bd5302eacda6aa](https://github.com/rcmdnk/python-action-test/tree/c6f05c93bb5d9306976086d179bd5302eacda6aa)
+commit: [08422d6db7ab6334418fa8378dfb0c58d16a4030](https://github.com/rcmdnk/python-action-test/tree/08422d6db7ab6334418fa8378dfb0c58d16a4030)
 
 condition: branch=main, os=ubuntu-latest, python_version=3.10
 
@@ -8,5 +8,5 @@ condition: branch=main, os=ubuntu-latest, python_version=3.10
 
 | Tests | Skipped | Failures | Errors | Time |
 | ----- | ------- | -------- | -------- | ------------------ |
-| 4 | 0 :zzz: | 0 :x: | 0 :fire: | 0.153s :stopwatch: |
+| 4 | 0 :zzz: | 0 :x: | 0 :fire: | 0.089s :stopwatch: |
 
