@@ -40,11 +40,11 @@ on:
         default: false
 
 env:
-  MAIN_BRANCH: ${{ inputs.main_branch || 'main' }}
-  MAIN_OS: ${{ inputs.main_os || 'ubuntu-latest' }}
-  MAIN_PY_VER: ${{ inputs.main_py_ver || '3.10' }}
-  TMATE: ${{ inputs.tmate || 'false' }}
-  HEAD_PYTHON_ACTION: ${{ inputs.HEAD_PYTHON_ACTION || 'false' }}
+  main_branch: ${{ inputs.main_branch || 'main' }}
+  main_os: ${{ inputs.main_os || 'ubuntu-latest' }}
+  main_py_ver: ${{ inputs.main_py_ver || '3.10' }}
+  tmate: ${{ inputs.tmate || 'false' }}
+  head_python_action: ${{ inputs.head_python_action || 'false' }}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -64,38 +64,40 @@ jobs:
       - name: Check is main
         id: is_main
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/${{ env.MAIN_BRANCH }}" ] && [ "${{ matrix.os }}" = "${{ env.MAIN_OS }}" ] && [ "${{ matrix.python-version }}" = "${{ env.MAIN_PY_VER }}" ];then
-            echo "IS_MAIN=1" >> $GITHUB_ENV
+          if [ "${{ github.ref }}" = "refs/heads/${{ env.main_branch }}" ] && [ "${{ matrix.os }}" = "${{ env.main_os }}" ] && [ "${{ matrix.python-version }}" = "${{ env.main_py_ver }}" ];then
+            echo "is_main=1" >> $GITHUB_ENV
             is_main=1
           else
-            echo "IS_MAIN=0" >> $GITHUB_ENV
+            echo "is_main=0" >> $GITHUB_ENV
             is_main=0
           fi
-          if [ "${{ env.TMATE }}" = "true" ];then
+          if [ "${{ env.tmate }}" = "true" ];then
             if [ "$is_main" = 0 ];then
               echo "Tmate is enabled and this is not main, skip tests"
               exit 1
             fi
-            echo "DEBUG=1" >> $GITHUB_ENV
+            echo "debug=1" >> $GITHUB_ENV
           else
-            echo "DEBUG=0" >> $GITHUB_ENV
+            echo "debug=0" >> $GITHUB_ENV
           fi
       - uses: rcmdnk/python-action@v1
         id: python_action_v
-        if: ${{ env.HEAD_PYTHON_ACTION == 'false' }}
+        if: ${{ env.head_python_action == 'false' }}
         with:
-          coverage-push: "${{ env.IS_MAIN }}"
-          coverage-push-condition: "branch=${{ env.MAIN_BRANCH }}, os=${{ env.MAIN_OS }}, python_version=${{ env.MAIN_PY_VER }}"
-          pre-commit: "${{ env.IS_MAIN }}"
-          tmate: "${{ env.DEBUG }}"
+          python-version: "${{ matrix.python-version }}"
+          coverage-push: "${{ env.is_main }}"
+          coverage-push-condition: "branch=${{ env.main_branch }}, os=${{ env.main_os }}, python_version=${{ env.main_py_ver }}"
+          pre-commit: "${{ env.is_main }}"
+          tmate: "${{ env.debug }}"
       - uses: rcmdnk/python-action@main
         id: python_action_main
-        if: ${{ env.HEAD_PYTHON_ACTION == 'true' }}
+        if: ${{ env.head_python_action == 'true' }}
         with:
-          coverage-push: "${{ env.IS_MAIN }}"
-          coverage-push-condition: "branch=${{ env.MAIN_BRANCH }}, os=${{ env.MAIN_OS }}, python_version=${{ env.MAIN_PY_VER }}"
-          pre-commit: "${{ env.IS_MAIN }}"
-          tmate: "${{ env.DEBUG }}"
+          python-version: "${{ matrix.python-version }}"
+          coverage-push: "${{ env.is_main }}"
+          coverage-push-condition: "branch=${{ env.main_branch }}, os=${{ env.main_os }}, python_version=${{ env.main_py_ver }}"
+          pre-commit: "${{ env.is_main }}"
+          tmate: "${{ env.debug }}"
       - name: Test count check
         run: |
           [ "${{  steps.python_action_v.outputs.tests }}" = 4 ] || [ "${{  steps.python_action_main.outputs.tests }}" = 4 ]
@@ -103,16 +105,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Exit workflow
-        if: ${{ github.event_name == 'workflow_dispatch' && env.TMATE == 'true' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && env.tmate == 'true' }}
         run: exit 1
       - uses: rcmdnk/python-action@v1
         id: python_action_v
-        if: ${{ env.HEAD_PYTHON_ACTION == 'false' }}
+        if: ${{ env.head_python_action == 'false' }}
         with:
           pytest-ignore: "tests/test_version.py,tests/test_nonexists.py"
           pytest-cov-path: "src"
       - uses: rcmdnk/python-action@main
-        if: ${{ env.HEAD_PYTHON_ACTION == 'true' }}
+        if: ${{ env.head_python_action == 'true' }}
         id: python_action_main
         with:
           pytest-ignore: "tests/test_version.py,tests/test_nonexists.py"
@@ -124,30 +126,48 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Exit workflow
-        if: ${{ github.event_name == 'workflow_dispatch' && env.TMATE == 'true'}}
+        if: ${{ github.event_name == 'workflow_dispatch' && env.tmate == 'true'}}
         run: exit 1
       - uses: rcmdnk/python-action@v1
         id: python_action_v
         continue-on-error: true
-        if: ${{ env.HEAD_PYTHON_ACTION == 'false' }}
+        if: ${{ env.head_python_action == 'false' }}
         with:
           pytest-tests-path: "tests/test_fail.py"
           pytest-cov-path: "src"
       - uses: rcmdnk/python-action@main
         id: python_action_main
         continue-on-error: true
-        if: ${{ env.HEAD_PYTHON_ACTION == 'true' }}
+        if: ${{ env.head_python_action == 'true' }}
         with:
           pytest-tests-path: "tests/test_fail.py"
           pytest-cov-path: "src"
       - name: Test count check
         run: |
           [ "${{  steps.python_action_v.outputs.tests }}" = 1 ] || [ "${{  steps.python_action_main.outputs.tests }}" = 1 ]
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit workflow
+        if: ${{ github.event_name == 'workflow_dispatch' && env.tmate == 'true'}}
+        run: exit 1
+      - uses: rcmdnk/python-action@v1
+        id: python_action_v
+        continue-on-error: true
+        if: ${{ env.head_python_action == 'false' }}
+        with:
+          pytest-separate-benchmark: "1"
+      - uses: rcmdnk/python-action@main
+        id: python_action_main
+        continue-on-error: true
+        if: ${{ env.head_python_action == 'true' }}
+        with:
+          pytest-separate-benchmark: "1"
   variable-check:
     runs-on: ubuntu-latest
     steps:
       - name: Exit workflow
-        if: ${{ github.event_name == 'workflow_dispatch' && env.TMATE == 'true' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && env.tmate == 'true' }}
         run: exit 1
       - name : vars
         run: |
@@ -163,8 +183,8 @@ jobs:
           echo ${{ github.run_attempt }}
           echo ${{ job.container.id }}
           echo ${{ job.container.network }}
-          echo ${{ env.MAIN_BRANCH }}
-          echo ${{ env.MAIN_OS }}
-          echo ${{ env.MAIN_PY_VER }}
-          echo ${{ env.TMATE }}
-          echo ${{ env.HEAD_PYTHON_ACTION }}
+          echo ${{ env.main_branch }}
+          echo ${{ env.main_os }}
+          echo ${{ env.main_py_ver }}
+          echo ${{ env.tmate }}
+          echo ${{ env.head_python_action }}
