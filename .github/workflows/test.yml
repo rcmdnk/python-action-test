@@ -90,7 +90,7 @@ jobs:
           tmate: "${{ env.DEBUG }}"
       - uses: rcmdnk/python-action@main
         id: python_action_main
-        if: ${{ env.head_python_action == 'true' }}
+        if: ${{ env.HEAD_PYTHON_ACTION == 'true' }}
         with:
           coverage-push: "${{ env.IS_MAIN }}"
           coverage-push-condition: "branch=${{ env.MAIN_BRANCH }}, os=${{ env.MAIN_OS }}, python_version=${{ env.MAIN_PY_VER }}"
@@ -103,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Exit workflow
-        if: ${{ github.event_name == 'workflow_dispatch' && env.TMATE }}
+        if: ${{ github.event_name == 'workflow_dispatch' && env.TMATE == 'true' }}
         run: exit 1
       - uses: rcmdnk/python-action@v1
         id: python_action_v
@@ -112,7 +112,7 @@ jobs:
           pytest-ignore: "tests/test_version.py,tests/test_nonexists.py"
           pytest-cov-path: "src"
       - uses: rcmdnk/python-action@main
-        if: ${{ env.head_python_action == 'true' }}
+        if: ${{ env.HEAD_PYTHON_ACTION == 'true' }}
         id: python_action_main
         with:
           pytest-ignore: "tests/test_version.py,tests/test_nonexists.py"
@@ -120,9 +120,35 @@ jobs:
       - name: Test count check
         run: |
           [ "${{  steps.python_action_v.outputs.tests }}" = 3 ] || [ "${{  steps.python_action_main.outputs.tests }}" = 3 ]
+  failure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit workflow
+        if: ${{ github.event_name == 'workflow_dispatch' && env.TMATE == 'true'}}
+        run: exit 1
+      - uses: rcmdnk/python-action@v1
+        id: python_action_v
+        continue-on-error: true
+        if: ${{ env.HEAD_PYTHON_ACTION == 'false' }}
+        with:
+          pytest-tests-path: "tests/test_fail.py"
+          pytest-cov-path: "src"
+      - uses: rcmdnk/python-action@main
+        id: python_action_main
+        continue-on-error: true
+        if: ${{ env.HEAD_PYTHON_ACTION == 'true' }}
+        with:
+          pytest-tests-path: "tests/test_fail.py"
+          pytest-cov-path: "src"
+      - name: Test count check
+        run: |
+          [ "${{  steps.python_action_v.outputs.tests }}" = 1 ] || [ "${{  steps.python_action_main.outputs.tests }}" = 1 ]
   variable-check:
     runs-on: ubuntu-latest
     steps:
+      - name: Exit workflow
+        if: ${{ github.event_name == 'workflow_dispatch' && env.TMATE == 'true' }}
+        run: exit 1
       - name : vars
         run: |
           echo test
@@ -137,3 +163,8 @@ jobs:
           echo ${{ github.run_attempt }}
           echo ${{ job.container.id }}
           echo ${{ job.container.network }}
+          echo ${{ env.MAIN_BRANCH }}
+          echo ${{ env.MAIN_OS }}
+          echo ${{ env.MAIN_PY_VER }}
+          echo ${{ env.TMATE }}
+          echo ${{ env.HEAD_PYTHON_ACTION }}
