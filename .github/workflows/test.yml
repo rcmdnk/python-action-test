@@ -121,7 +121,7 @@ jobs:
           pytest-cov-path: "src"
       - name: Test count check
         run: |
-          [ "${{  steps.python_action_v.outputs.tests }}" = 3 ] || [ "${{  steps.python_action_main.outputs.tests }}" = 3 ]
+          [ "${{  steps.python_action_v.outputs.tests }}" = 4 ] || [ "${{  steps.python_action_main.outputs.tests }}" = 4 ]
   failure:
     runs-on: ubuntu-latest
     steps:
