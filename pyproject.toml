@@ -10,7 +10,7 @@ pytest-benchmark = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "7.3.1"
-pytest-cov = "4.0.0"
+pytest-cov = "4.1.0"
 pytest-xdist = "3.3.1"
 pre-commit = "3.3.2"
 black = "23.3.0"
