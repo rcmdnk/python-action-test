@@ -46,10 +46,6 @@ env:
   tmate: ${{ inputs.tmate || 'false' }}
   head_python_action: ${{ inputs.head_python_action || 'false' }}
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   test_matrix:
     strategy:
