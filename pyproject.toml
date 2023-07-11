@@ -13,7 +13,7 @@ pytest = "7.4.0"
 pytest-cov = "4.1.0"
 pytest-xdist = "3.3.1"
 pre-commit = "3.3.3"
-black = "23.3.0"
+black = "23.7.0"
 
 [tool.pytest.ini_options]
 addopts = "-n auto --benchmark-disable --benchmark-sort=fullname --benchmark-name=short --ignore tests/test_fail.py"
