@@ -9,11 +9,11 @@ python = ">=3.10,<3.11"
 pytest-benchmark = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "7.4.1"
+pytest = "7.4.2"
 pytest-cov = "4.1.0"
 pytest-xdist = "3.3.1"
 pre-commit = "3.4.0"
-black = "23.7.0"
+black = "23.9.1"
 
 [tool.pytest.ini_options]
 addopts = "-n auto --benchmark-disable --benchmark-sort=fullname --benchmark-name=short --ignore tests/test_fail.py"
