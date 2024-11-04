@@ -6,7 +6,7 @@ authors = ["rcmdnk <rcmdnk@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pytest-benchmark = "^4.0.0"
+pytest-benchmark = "^5.0.0"
 
 [tool.poetry.dev-dependencies]
 tomli = { version = "^2.0.1", python = "<3.11"}
