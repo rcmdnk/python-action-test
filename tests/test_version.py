@@ -8,5 +8,9 @@ def test_version():
     except ModuleNotFoundError:
         import tomli as tomllib
     with open(Path(__file__).parents[1] / "pyproject.toml", "rb") as f:
-        version = tomllib.load(f)["tool"]["poetry"]["version"]
+        yml = tomllib.load(f)
+        if "project" in yml:
+            version = yml["project"]["version"]
+        else:
+            version = yml["tool"]["poetry"]["version"]
     assert version == __version__

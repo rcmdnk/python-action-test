@@ -30,6 +30,14 @@ on:
           - "3.11"
           - "3.10"
           - "3.9"
+      main_setup_type:
+        description: "Setup type for coverage."
+        type: choice
+        default: "poetry"
+        options:
+          - "poetry"
+          - "uv"
+          - "pip"
       tmate:
         type: boolean
         description: "Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate). This is only for main strategy and others will be stopped."
@@ -45,6 +53,7 @@ env:
   main_branch: ${{ inputs.main_branch || 'main' }}
   main_os: ${{ inputs.main_os || 'ubuntu-latest' }}
   main_py_ver: ${{ inputs.main_py_ver || '3.11' }}
+  main_setup_type: ${{ inputs.main_setup_type || 'poetry' }}
   tmate: ${{ inputs.tmate || 'false' }}
   head_python_action: ${{ inputs.head_python_action || 'false' }}
 
@@ -54,7 +63,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest,macos-latest]
-        python-version: ["3.12","3.11","3.10","3.9"]
+        python-version: ["3.12","3.11","3.10"]
+        setup-type: ["poetry","uv","pip"]
     permissions:
       contents: write
     runs-on: ${{ matrix.os }}
@@ -62,7 +72,7 @@ jobs:
       - name: Check is main
         id: is_main
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/${{ env.main_branch }}" ] && [ "${{ matrix.os }}" = "${{ env.main_os }}" ] && [ "${{ matrix.python-version }}" = "${{ env.main_py_ver }}" ];then
+          if [ "${{ github.ref }}" = "refs/heads/${{ env.main_branch }}" ] && [ "${{ matrix.os }}" = "${{ env.main_os }}" ] && [ "${{ matrix.python-version }}" = "${{ env.main_py_ver }}" ] && [ "${{ matrix.setup-type }}" = "${{ env.main_setup_type }}" ];then
             echo "is_main=1" >> $GITHUB_ENV
             is_main=1
           else
@@ -78,10 +88,35 @@ jobs:
           else
             echo "debug=0" >> $GITHUB_ENV
           fi
-      - uses: rcmdnk/python-action@v2
+      - name: Set other variables
+        run: |
+          if [ "${{ matrix.setup-type }}"  != "poetry" ];then
+            echo "checkout=0" >> $GITHUB_ENV
+          else
+            echo "checkout=1" >> $GITHUB_ENV
+          fi
+      - uses: actions/checkout@v4
+        if: ${{ matrix.setup-type != 'poetry' }}
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Set pyproject.toml for uv
+        if: ${{ matrix.setup-type == 'uv' }}
+        run: |
+          mv pyproject.uv.toml pyproject.toml
+      - name: Set pyproject.toml for pip
+        if: ${{ matrix.setup-type == 'pip' }}
+        run: |
+          pipx install poetry
+          poetry self add poetry-plugin-export
+          poetry export --with dev --without-hashes -f requirements.txt -o requirements.txt
+          echo "." >> requirements.txt
+      - uses: rcmdnk/python-action@v3
         id: python_action_v
         if: ${{ env.head_python_action == 'false' }}
         with:
+          checkout: "${{ env.checkout }}"
+          setup-type: "${{ matrix.setup-type }}"
           python-version: "${{ matrix.python-version }}"
           coverage-push: "${{ env.is_main }}"
           coverage-push-condition: "branch=${{ env.main_branch }}, os=${{ env.main_os }}, python_version=${{ env.main_py_ver }}"
@@ -91,6 +126,8 @@ jobs:
         id: python_action_main
         if: ${{ env.head_python_action == 'true' }}
         with:
+          checkout: "${{ env.checkout }}"
+          setup-type: "${{ matrix.setup-type }}"
           python-version: "${{ matrix.python-version }}"
           coverage-push: "${{ env.is_main }}"
           coverage-push-condition: "branch=${{ env.main_branch }}, os=${{ env.main_os }}, python_version=${{ env.main_py_ver }}"
