@@ -2,10 +2,10 @@ commit: [27dd32f717ef8e87c4ff0643d17379c6c141d0d0](https://github.com/rcmdnk/pyt
 
 condition: branch=main, os=ubuntu-latest, python_version=3.11
 
-[![python test](https://github.com/rcmdnk/python-action-test/actions/workflows/test.yml/badge.svg)](https://github.com/rcmdnk/python-action-test/actions/runs/11695778024)
+[![python test](https://github.com/rcmdnk/python-action-test/actions/workflows/test.yml/badge.svg)](https://github.com/rcmdnk/python-action-test/actions/runs/11695783452)
 <a href="https://github.com/rcmdnk/python-action-test/blob/27dd32f717ef8e87c4ff0643d17379c6c141d0d0/README.md"><img alt="Coverage" src="https://img.shields.io/badge/Coverage-93%25-brightgreen.svg" /></a><details><summary>Coverage Report </summary><table><tr><th>File</th><th>Stmts</th><th>Miss</th><th>Cover</th><th>Missing</th></tr><tbody><tr><td colspan="5"><b>src/python_action_test</b></td></tr><tr><td>&nbsp; &nbsp;<a href="https://github.com/rcmdnk/python-action-test/blob/27dd32f717ef8e87c4ff0643d17379c6c141d0d0/src/python_action_test/python_action_test.py">python_action_test.py</a></td><td>10</td><td>1</td><td>90%</td><td><a href="https://github.com/rcmdnk/python-action-test/blob/27dd32f717ef8e87c4ff0643d17379c6c141d0d0/src/python_action_test/python_action_test.py#L15">15</a></td></tr><tr><td><b>TOTAL</b></td><td><b>14</b></td><td><b>1</b></td><td><b>93%</b></td><td>&nbsp;</td></tr></tbody></table></details>
 
 | Tests | Skipped | Failures | Errors | Time |
 | ----- | ------- | -------- | -------- | ------------------ |
-| 5 | 0 :zzz: | 0 :x: | 0 :fire: | 0.623s :stopwatch: |
+| 5 | 0 :zzz: | 0 :x: | 0 :fire: | 0.671s :stopwatch: |
 
