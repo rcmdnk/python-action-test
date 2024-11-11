@@ -142,7 +142,7 @@ jobs:
       - name: Exit workflow
         if: ${{ github.event_name == 'workflow_dispatch' && env.tmate == 'true' }}
         run: exit 1
-      - uses: rcmdnk/python-action@v2
+      - uses: rcmdnk/python-action@v3
         id: python_action_v
         if: ${{ env.head_python_action == 'false' }}
         with:
@@ -163,7 +163,7 @@ jobs:
       - name: Exit workflow
         if: ${{ github.event_name == 'workflow_dispatch' && env.tmate == 'true'}}
         run: exit 1
-      - uses: rcmdnk/python-action@v2
+      - uses: rcmdnk/python-action@v3
         id: python_action_v
         continue-on-error: true
         if: ${{ env.head_python_action == 'false' }}
@@ -186,7 +186,7 @@ jobs:
       - name: Exit workflow
         if: ${{ github.event_name == 'workflow_dispatch' && env.tmate == 'true'}}
         run: exit 1
-      - uses: rcmdnk/python-action@v2
+      - uses: rcmdnk/python-action@v3
         id: python_action_v
         continue-on-error: true
         if: ${{ env.head_python_action == 'false' }}
