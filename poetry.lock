@@ -367,18 +367,18 @@ dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments
 
 [[package]]
 name = "pytest-benchmark"
-version = "5.0.0"
+version = "5.1.0"
 description = "A ``pytest`` fixture for benchmarking code. It will group the tests into rounds that are calibrated to the chosen timer."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "pytest-benchmark-5.0.0.tar.gz", hash = "sha256:cd0adf68516eea7ac212b78a7eb6fc3373865507de8562bb3bfff2f2f852cc63"},
-    {file = "pytest_benchmark-5.0.0-py3-none-any.whl", hash = "sha256:67fed4943aa761077345119555d7f6df09877a12a36e8128f05e19ccd5942d80"},
+    {file = "pytest-benchmark-5.1.0.tar.gz", hash = "sha256:9ea661cdc292e8231f7cd4c10b0319e56a2118e2c09d9f50e1b3d150d2aca105"},
+    {file = "pytest_benchmark-5.1.0-py3-none-any.whl", hash = "sha256:922de2dfa3033c227c96da942d1878191afa135a29485fb942e85dff1c592c89"},
 ]
 
 [package.dependencies]
 py-cpuinfo = "*"
-pytest = ">=3.8"
+pytest = ">=8.1"
 
 [package.extras]
 aspect = ["aspectlib"]
@@ -487,13 +487,13 @@ files = [
 
 [[package]]
 name = "tomli"
-version = "2.0.1"
+version = "2.1.0"
 description = "A lil' TOML parser"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
-    {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
+    {file = "tomli-2.1.0-py3-none-any.whl", hash = "sha256:a5c57c3d1c56f5ccdf89f6523458f60ef716e210fc47c4cfb188c5ba473e0391"},
+    {file = "tomli-2.1.0.tar.gz", hash = "sha256:3f646cae2aec94e17d04973e4249548320197cfabdf130015d023de4b74d8ab8"},
 ]
 
 [[package]]
@@ -530,4 +530,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "8662499db5d133790c84106996284fef327e9bfe4c68fa9b4bbe851f60aaf489"
+content-hash = "38bee3f51248f3570044d51fe810e15ed51c20f601b3f7041411fdbbf84074d2"
