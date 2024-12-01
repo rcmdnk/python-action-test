@@ -6,10 +6,10 @@ authors = ["rcmdnk <rcmdnk@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-tomli = { version = "2.1.0", python = "<3.11"}
+tomli = { version = "2.2.1", python = "<3.11"}
 
 [tool.poetry.dev-dependencies]
-pytest = "8.3.3"
+pytest = "8.3.4"
 pytest-benchmark = "5.1.0"
 pytest-cov = "6.0.0"
 pytest-xdist = "3.6.1"
