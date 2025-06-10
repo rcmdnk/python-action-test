@@ -1,11 +1,11 @@
-commit: [a8b761a74ec676d5270e4da28d48b760ed962a6b](https://github.com/rcmdnk/python-action-test/tree/a8b761a74ec676d5270e4da28d48b760ed962a6b)
+commit: [e070ccda20b581f98f7d41c0396567a0828720fc](https://github.com/rcmdnk/python-action-test/tree/e070ccda20b581f98f7d41c0396567a0828720fc)
 
 condition: branch=main, os=ubuntu-latest, python_version=3.11
 
-[![python test](https://github.com/rcmdnk/python-action-test/actions/workflows/test.yml/badge.svg)](https://github.com/rcmdnk/python-action-test/actions/runs/15547357296)
-<a href="https://github.com/rcmdnk/python-action-test/blob/a8b761a74ec676d5270e4da28d48b760ed962a6b/README.md"><img alt="Coverage" src="https://img.shields.io/badge/Coverage-93%25-brightgreen.svg" /></a><details><summary>Coverage Report </summary><table><tr><th>File</th><th>Stmts</th><th>Miss</th><th>Cover</th><th>Missing</th></tr><tbody><tr><td colspan="5"><b>src/python_action_test</b></td></tr><tr><td>&nbsp; &nbsp;<a href="https://github.com/rcmdnk/python-action-test/blob/a8b761a74ec676d5270e4da28d48b760ed962a6b/src/python_action_test/python_action_test.py">python_action_test.py</a></td><td>10</td><td>1</td><td>90%</td><td><a href="https://github.com/rcmdnk/python-action-test/blob/a8b761a74ec676d5270e4da28d48b760ed962a6b/src/python_action_test/python_action_test.py#L15">15</a></td></tr><tr><td><b>TOTAL</b></td><td><b>14</b></td><td><b>1</b></td><td><b>93%</b></td><td>&nbsp;</td></tr></tbody></table></details>
+[![python test](https://github.com/rcmdnk/python-action-test/actions/workflows/test.yml/badge.svg)](https://github.com/rcmdnk/python-action-test/actions/runs/15548103518)
+<a href="https://github.com/rcmdnk/python-action-test/blob/e070ccda20b581f98f7d41c0396567a0828720fc/README.md"><img alt="Coverage" src="https://img.shields.io/badge/Coverage-93%25-brightgreen.svg" /></a><details><summary>Coverage Report </summary><table><tr><th>File</th><th>Stmts</th><th>Miss</th><th>Cover</th><th>Missing</th></tr><tbody><tr><td colspan="5"><b>src/python_action_test</b></td></tr><tr><td>&nbsp; &nbsp;<a href="https://github.com/rcmdnk/python-action-test/blob/e070ccda20b581f98f7d41c0396567a0828720fc/src/python_action_test/python_action_test.py">python_action_test.py</a></td><td>10</td><td>1</td><td>90%</td><td><a href="https://github.com/rcmdnk/python-action-test/blob/e070ccda20b581f98f7d41c0396567a0828720fc/src/python_action_test/python_action_test.py#L15">15</a></td></tr><tr><td><b>TOTAL</b></td><td><b>14</b></td><td><b>1</b></td><td><b>93%</b></td><td>&nbsp;</td></tr></tbody></table></details>
 
 | Tests | Skipped | Failures | Errors | Time |
 | ----- | ------- | -------- | -------- | ------------------ |
-| 5 | 0 :zzz: | 0 :x: | 0 :fire: | 0.675s :stopwatch: |
+| 5 | 0 :zzz: | 0 :x: | 0 :fire: | 0.676s :stopwatch: |
 
