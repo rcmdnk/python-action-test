@@ -95,7 +95,7 @@ jobs:
           else
             echo "checkout=1" >> $GITHUB_ENV
           fi
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: ${{ matrix.setup-type != 'poetry' }}
         with:
           persist-credentials: false
